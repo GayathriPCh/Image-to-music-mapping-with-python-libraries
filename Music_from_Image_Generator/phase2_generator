@@ -1,0 +1,119 @@
+import numpy as np
+import pandas as pd
+import cv2
+from scipy.io import wavfile
+import random
+from hue_extraction import pixels_df  # Import your hue_extraction module
+from pedalboard import Pedalboard, LadderFilter, Delay, Reverb, PitchShift
+from pedalboard.io import AudioFile
+from IPython.display import display, Audio
+
+# Function to map hue values to frequencies (replace with your implementation)
+def hue2freq(h, scale_freqs):
+    thresholds = [26, 52, 78, 104, 128, 154, 180]
+    note = scale_freqs[0]
+    if h <= thresholds[0]:
+        note = scale_freqs[0]
+    elif h > thresholds[0] and h <= thresholds[1]:
+        note = scale_freqs[1]
+    elif h > thresholds[1] and h <= thresholds[2]:
+        note = scale_freqs[2]
+    elif h > thresholds[2] and h <= thresholds[3]:
+        note = scale_freqs[3]
+    elif h > thresholds[3] and h <= thresholds[4]:
+        note = scale_freqs[4]
+    elif h > thresholds[4] and h <= thresholds[5]:
+        note = scale_freqs[5]
+    elif h > thresholds[5] and h <= thresholds[6]:
+        note = scale_freqs[6]
+    else:
+        note = scale_freqs[0]
+
+    return note
+
+# Define the sample rate globally
+sr = 22050
+
+# Load an image and create a DataFrame with hue values
+# Replace 'peacock.jpg' with the path to your image file
+image = cv2.imread('earth.jpg')
+hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+pixels_df = pd.DataFrame(hsv_image.reshape(-1, 3), columns=['hues', 'saturations', 'values'])
+
+# Define scale frequencies (A Harmonic Minor)
+scale_freqs = [220.00, 246.94, 261.63, 293.66, 329.63, 349.23, 415.30]
+
+# Add 'notes' column to 'pixels_df' based on hue values
+pixels_df['notes'] = pixels_df['hues'].apply(lambda hue: hue2freq(hue, scale_freqs))
+
+# Define other parameters
+T = 0.1  # Duration of each note
+t = np.linspace(0, T, int(T * sr), endpoint=False)
+nPixels = 60  # Number of notes in the song
+
+# Initialize arrays for song and harmony
+song = np.array([])
+harmony = np.array([])
+
+# Choose octaves as desired
+octaves = np.array([0.5, 1, 2])
+
+# Define harmony intervals
+harmony_intervals = ['P4', 'M3', 'P5']  # Example intervals, you can customize this list
+
+# Create a dictionary for harmony intervals and their ratios
+harmony_select = {
+    'P4': 4/3,
+    'M3': 5/4,
+    'P5': 3/2
+}
+
+# Generate the song and harmony
+for i in range(nPixels):
+    octave = random.choice(octaves)
+    val = octave * random.choice(pixels_df['notes'])
+    harmony_interval = random.choice(harmony_intervals)
+    harmony_val = harmony_select[harmony_interval] * val
+    note = 0.5 * np.sin(2 * np.pi * val * t)
+    harmony_note = 0.5 * np.sin(2 * np.pi * harmony_val * t)
+    song = np.concatenate([song, note])
+    harmony = np.concatenate([harmony, harmony_note])
+
+# Create a 2D numpy array for song and harmony
+song_and_harmony = np.column_stack((song, harmony))
+
+# Transpose the array to have the shape (Nsamples, Nchannels)
+song_and_harmony = song_and_harmony.T
+
+# Normalize the audio to the 16-bit range
+song_and_harmony = (song_and_harmony * 32767).astype(np.int16)
+song_and_harmony = np.clip(song_and_harmony, -32768, 32767)  # Clip values to the valid range
+
+# Save the generated song and harmony as an audio file
+wavfile.write('output_audio.wav', sr, song_and_harmony.T)
+
+# Create a Pedalboard to add audio effects
+board = Pedalboard([
+    LadderFilter(mode=LadderFilter.Mode.HPF12, cutoff_hz=100),
+    Delay(delay_seconds=0.3),
+    Reverb(room_size=0.6, wet_level=0.2, width=1.0),
+    PitchShift(semitones=6),
+])
+
+# Read the generated audio file
+with AudioFile('output_audio.wav', 'r') as f:
+    audio = f.read(f.frames)
+    samplerate = f.samplerate
+
+# Apply audio effects using the Pedalboard
+effected = board(audio, samplerate)
+
+# Save the processed audio as a new WAV file
+# Normalize the audio to the 16-bit range
+song_and_harmony = (song_and_harmony * 32767).astype(np.int16)
+
+# Save the generated song and harmony as an audio file
+wavfile.write('processed_output_audio.wav', sr, effected.T)
+
+# Play the processed audio
+display(Audio('processed_output_audio.wav'))
