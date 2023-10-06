@@ -1,0 +1,92 @@
+
+import numpy as np
+from scipy.io import wavfile
+import IPython.display as ipd
+import pandas as pd
+import random
+
+from hue_extraction import pixels_df  # Import your 'pixels_df' DataFrame
+
+# Define the sample rate globally
+sr = 22050
+
+# Function to map hue values to frequencies
+def hue2freq(h, scale_freqs):
+    thresholds = [26, 52, 78, 104, 128, 154, 180]
+    note = scale_freqs[0]
+    if h <= thresholds[0]:
+        note = scale_freqs[0]
+    elif h > thresholds[0] and h <= thresholds[1]:
+        note = scale_freqs[1]
+    elif h > thresholds[1] and h <= thresholds[2]:
+        note = scale_freqs[2]
+    elif h > thresholds[2] and h <= thresholds[3]:
+        note = scale_freqs[3]
+    elif h > thresholds[3] and h <= thresholds[4]:
+        note = scale_freqs[4]
+    elif h > thresholds[4] and h <= thresholds[5]:
+        note = scale_freqs[5]
+    elif h > thresholds[5] and h <= thresholds[6]:
+        note = scale_freqs[6]
+    else:
+        note = scale_freqs[0]
+
+    return note
+
+
+# Load an image and create a DataFrame with hue values
+# (Assuming you have a DataFrame named 'pixels_df' with a 'hues' column)
+
+# Define scale frequencies (A Harmonic Minor)
+scale_freqs = [220.00, 246.94, 261.63, 293.66, 329.63, 349.23, 415.30]
+
+# Add 'notes' column to 'pixels_df' based on hue values
+pixels_df['notes'] = pixels_df['hues'].apply(lambda hue: hue2freq(hue, scale_freqs))
+
+# Define other parameters
+T = 0.1  # Duration of each note
+t = np.linspace(0, T, int(T * sr), endpoint=False)
+nPixels = 60  # Number of notes in the song
+
+# Initialize arrays for song and harmony
+song = np.array([])
+harmony = np.array([])
+
+# Choose octaves as desired
+octaves = np.array([0.5, 1, 2])
+
+# Define harmony intervals
+harmony_intervals = ['P4', 'M3', 'P5']  # Example intervals, you can customize this list
+
+# Create a dictionary for harmony intervals and their ratios
+harmony_select = {
+    'P4': 4/3,
+    'M3': 5/4,
+    'P5': 3/2
+}
+
+# Generate the song and harmony
+for i in range(nPixels):
+    octave = random.choice(octaves)
+    val = octave * random.choice(pixels_df['notes'])
+    harmony_interval = random.choice(harmony_intervals)
+    harmony_val = harmony_select[harmony_interval] * val
+    note = 0.5 * np.sin(2 * np.pi * val * t)
+    harmony_note = 0.5 * np.sin(2 * np.pi * harmony_val * t)
+    song = np.concatenate([song, note])
+    harmony = np.concatenate([harmony, harmony_note])
+
+# Create a 2D numpy array for song and harmony
+song_and_harmony = np.column_stack((song, harmony))
+
+# Transpose the array to have the shape (Nsamples, Nchannels)
+song_and_harmony = song_and_harmony.T
+
+# Normalize the audio data in the song_and_harmony array
+song_and_harmony /= np.max(np.abs(song_and_harmony))
+
+# Save the generated song and harmony as an audio file
+wavfile.write('output_audio.wav', sr, song_and_harmony.T.astype(np.float32))
+
+# Play the generated audio
+ipd.Audio('output_audio.wav')
