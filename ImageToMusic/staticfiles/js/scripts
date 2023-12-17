@@ -1,0 +1,85 @@
+// scripts.js
+const STATIC_URL = "/static/";
+document.addEventListener("DOMContentLoaded", function () {
+    // Function to fade out an element
+    function fadeOut(element) {
+        gsap.to(element, { opacity: 0, duration: 0.5 });
+    }
+
+    // Function to fade in an element
+    function fadeIn(element) {
+        gsap.to(element, { opacity: 1, duration: 0.5 });
+    }
+
+    // Top bar animation
+    const topBar = document.querySelector('.top-bar');
+
+    topBar.addEventListener('mouseenter', function () {
+        fadeIn(topBar);
+    });
+
+    topBar.addEventListener('mouseleave', function () {
+        fadeOut(topBar);
+    });
+
+    // Header animation
+    const mainHeader = document.querySelector('.main-header');
+
+    gsap.from(mainHeader, { opacity: 0, duration: 1, delay: 0.5 });
+
+    // Introduction section animation
+    const introSection = document.querySelector('.intro-section');
+
+    gsap.from(introSection, { opacity: 0, duration: 1, delay: 1 });
+
+    // Features section animation
+    const featureBoxes = document.querySelectorAll('.feature-box');
+
+    featureBoxes.forEach((box, index) => {
+        gsap.from(box, { opacity: 0, y: 50, duration: 1, delay: index * 0.2 });
+    });
+
+    // How it Works section animation
+    const howItWorksSection = document.querySelector('.how-it-works-section');
+
+    gsap.from(howItWorksSection, { opacity: 0, duration: 1, delay: 1 });
+
+    // Steps animation
+    const stepBoxes = document.querySelectorAll('.step-box');
+
+    stepBoxes.forEach((box, index) => {
+        gsap.from(box, { opacity: 0, y: 50, duration: 1, delay: index * 0.2 });
+    });
+
+    // Upload section animation
+    const uploadSection = document.querySelector('.upload-section');
+
+    gsap.from(uploadSection, { opacity: 0, duration: 1, delay: 1 });
+
+    // Why BeatWave section animation
+    const whyBeatWaveSection = document.querySelector('.why-beatwave-section');
+
+    gsap.from(whyBeatWaveSection, { opacity: 0, duration: 1, delay: 1 });
+
+    // Points animation
+    const pointBoxes = document.querySelectorAll('.point-box');
+
+    pointBoxes.forEach((box, index) => {
+        gsap.from(box, { opacity: 0, y: 50, duration: 1, delay: index * 0.2 });
+    });
+
+    // Logo section animation
+    const logoSection = document.querySelector('.logo-section');
+
+    gsap.from(logoSection, { opacity: 0, duration: 1, delay: 1 });
+
+    // Bigger logo animation
+    const biggerLogo = document.querySelector('.bigger-logo');
+
+    gsap.from(biggerLogo, { opacity: 0, y: 50, duration: 1, delay: 1 });
+
+    // Team name animation
+    const teamName = document.querySelector('.team-name');
+
+    gsap.from(teamName, { opacity: 0, duration: 1, delay: 2 });
+});

@@ -1,0 +1,458 @@
+<!-- music_generator/templates/upload_image.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beat Wave</title>
+    {% load static %}
+    <style>
+        /* styles.css content */
+        @import url('https://fonts.googleapis.com/css?family=Audiowide');
+        @import url('https://fonts.googleapis.com/css2?family=Bradley+Sans:wght@300&display=swap');
+        @font-face {
+          font-family: 'Nova Square';
+    src: url('https://example.com/path-to/nova-square.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        }
+        body {
+
+            margin: 0;
+            font-family: 'Audiwide', sans-serif;
+            background: url('{% static 'images/background.png' %}') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Add your styles here */
+
+        /* Top Bar Styles */
+        .top-bar {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .logo {
+            max-height: 50px;
+        }
+
+        .team-name {
+            font-size: 0.8em;
+        }
+
+        /* Main Header Styles */
+        .main-header {
+            text-align: center;
+            background: url('{% static 'images/background.png' %}') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            padding: 100px 0;
+        }
+
+        .header-title {
+        font-family: 'Nova Square', sans-serif;
+        font-size: 5em;
+        text-shadow: 0 0 10px #87CEEB, 0 0 20px #87CEEB, 0 0 30px #87CEEB, 0 0 40px #87CEEB, 0 0 50px #87CEEB, 0 0 60px #87CEEB, 0 0 70px #87CEEB;
+        margin: 0;
+        }
+
+        .sub-title {
+            font-size: 1.5em;
+            margin-top: 10px;
+            text-shadow: 0 0 10px #87CEEB, 0 0 20px #87CEEB, 0 0 30px #87CEEB, 0 0 40px #87CEEB, 0 0 50px #87CEEB, 0 0 60px #87CEEB, 0 0 70px #87CEEB;
+        }
+
+        /* Intro Section Styles */
+        .intro-section {
+            padding: 50px;
+            color: white;
+        }
+
+        /* Features Section Styles */
+        .features-section {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px;
+            color: white;
+        }
+
+        .feature-box {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #8462a9; /* Darker Purple */
+        }
+
+        .feature-box h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            font-size: 1em;
+        }
+
+        /* How it Works Section Styles */
+        .how-it-works-section {
+            padding: 50px;
+
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .step-box {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #8462a9; /* Darker Purple */
+        }
+
+        .step-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .step-box p {
+            font-size: 1em;
+        }
+
+        /* Upload Section Styles */
+        .upload-section {
+            text-align: center;
+            padding: 50px;
+                text-shadow: 0 0 10px #87CEEB, 0 0 20px #87CEEB, 0 0 30px #87CEEB, 0 0 40px #87CEEB, 0 0 50px #87CEEB, 0 0 60px #87CEEB, 0 0 70px #87CEEB;
+            color: white;
+        }
+
+        .shiny-button {
+            background-color: #87CEEB; /* Light Blue */
+    color: black;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    box-shadow: 0 0 10px #87CEEB, 0 0 20px #87CEEB, 0 0 30px #87CEEB; /* Neon glow effect with light blue color */
+}
+
+        .shiny-button:hover {
+            background-color: #00BFFF; /* Lighter blue on Hover */
+    color: black;
+    box-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 30px #00BFFF; /* Neon glow effect on hover with lighter blue color */
+}
+
+        /* Why BeatWave Section Styles */
+        .why-beatwave-section {
+            padding: 50px;
+            background-color: black;
+            color: white;
+        }
+
+        .point-box {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #333; /* Dark Gray */
+        }
+
+        .point-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .point-box p {
+            font-size: 1em;
+        }
+
+        /* Logo Section Styles */
+        .logo-section {
+            text-align: center;
+            padding: 50px;
+            background-color: #dac3f2; /* Pastel Purple */
+            color: white;
+        }
+
+        .bigger-logo {
+            max-height: 100px;
+        }
+    </style>
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1"></script>
+   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1"></script>
+<script>
+    // scripts.js content
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to fade out an element
+        function fadeOut(element) {
+            anime({
+                targets: element,
+                opacity: 0,
+                duration: 500,
+                easing: 'easeOutQuad'
+            });
+        }
+
+        // Function to fade in an element
+        function fadeIn(element) {
+            anime({
+                targets: element,
+                opacity: 1,
+                duration: 500,
+                easing: 'easeInQuad'
+            });
+        }
+
+        // Top bar animation
+        const topBar = document.querySelector('.top-bar');
+
+        topBar.addEventListener('mouseenter', function () {
+            fadeIn(topBar);
+        });
+
+        topBar.addEventListener('mouseleave', function () {
+            fadeOut(topBar);
+        });
+
+        // Header animation
+        const mainHeader = document.querySelector('.main-header');
+
+        anime({
+            targets: mainHeader,
+            opacity: 1,
+            duration: 1000,
+            delay: 500
+        });
+
+        // Introduction section animation
+        const introSection = document.querySelector('.intro-section');
+
+        anime({
+            targets: introSection,
+            opacity: 1,
+            duration: 1000,
+            delay: 1000
+        });
+
+        // Features section animation
+        const featureBoxes = document.querySelectorAll('.feature-box');
+
+        featureBoxes.forEach((box, index) => {
+            anime({
+                targets: box,
+                opacity: 1,
+                translateY: 0,
+                duration: 1000,
+                delay: index * 200
+            });
+        });
+
+        // How it Works section animation
+        const howItWorksSection = document.querySelector('.how-it-works-section');
+
+        anime({
+            targets: howItWorksSection,
+            opacity: 1,
+            duration: 1000,
+            delay: 1000
+        });
+
+        // Steps animation
+        const stepBoxes = document.querySelectorAll('.step-box');
+
+        stepBoxes.forEach((box, index) => {
+            anime({
+                targets: box,
+                opacity: 1,
+                translateY: 0,
+                duration: 1000,
+                delay: index * 200
+            });
+        });
+
+        // Upload section animation
+        const uploadSection = document.querySelector('.upload-section');
+
+        anime({
+            targets: uploadSection,
+            opacity: 1,
+            duration: 1000,
+            delay: 1000
+        });
+
+        // Why BeatWave section animation
+        const whyBeatWaveSection = document.querySelector('.why-beatwave-section');
+
+        anime({
+            targets: whyBeatWaveSection,
+            opacity: 1,
+            duration: 1000,
+            delay: 1000
+        });
+
+        // Points animation
+        const pointBoxes = document.querySelectorAll('.point-box');
+
+        pointBoxes.forEach((box, index) => {
+            anime({
+                targets: box,
+                opacity: 1,
+                translateY: 0,
+                duration: 1000,
+                delay: index * 200
+            });
+        });
+
+        // Logo section animation
+        const logoSection = document.querySelector('.logo-section');
+
+        anime({
+            targets: logoSection,
+            opacity: 1,
+            duration: 1000,
+            delay: 1000
+        });
+
+        // Bigger logo animation
+        const biggerLogo = document.querySelector('.bigger-logo');
+
+        anime({
+            targets: biggerLogo,
+            opacity: 1,
+            translateY: 0,
+            duration: 1000,
+            delay: 1000
+        });
+
+        // Team name animation
+        const teamName = document.querySelector('.team-name');
+
+        anime({
+            targets: teamName,
+            opacity: 1,
+            duration: 1000,
+            delay: 2000
+        });
+    });
+</script>
+
+
+</head>
+<body>
+    <!-- Top Bar with Logo and Team Name -->
+    <div class="top-bar">
+        <img src="{% static 'images/logoo.png' %}" alt="BeatWave Logo" class="logo">
+        <div class="team-name">Team-B1</div>
+    </div>
+
+    <!-- Main Page Header -->
+    <header class="main-header">
+        <h1 class="header-title">BEATWAVE</h1>
+        <p class="sub-title">Your musical canvas</p>
+    </header>
+
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <p class="intro-text">
+            Welcome to BeatWave, where creativity meets technology! BeatWave is a cutting-edge platform that empowers you to explore the world of music in a unique and innovative way. Whether you're an aspiring musician, a music enthusiast, or someone looking to infuse art into sound, BeatWave has something special for you.
+        </p>
+        <!-- Add more styling and animation as needed -->
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <!-- Feature Boxes with Text and Animation -->
+        <!-- Repeat this structure for each feature -->
+        <div class="feature-box">
+            <h2>Image-to-Music Generation</h2>
+            <p>Upload images and witness the magic as BeatWave transforms visuals into captivating musical compositions.</p>
+        </div>
+
+        <div class="feature-box">
+            <h2>Creative Exploration</h2>
+            <p>Experiment with new sounds and styles by leveraging the power of artificial intelligence. Unleash your musical imagination without any limits.</p>
+        </div>
+
+        <div class="feature-box">
+            <h2>Seamless User Experience</h2>
+            <p>Enjoy a user-friendly interface designed for smooth navigation. Effortlessly explore features and embark on your musical journey with just a few clicks.</p>
+        </div>
+
+        <div class="feature-box">
+            <h2>Download and Share</h2>
+            <p>Download your generated music compositions in various formats, allowing you to share your unique creations with the world.</p>
+        </div>
+
+        <div class="feature-box">
+            <h2>Real-time Visualization</h2>
+            <p>Experience real-time visualizations of your music, adding a dynamic and immersive layer to your creative process.</p>
+        </div>
+    </section>
+
+    <!-- "How it Works" Section -->
+    <section class="how-it-works-section">
+        <h2 class="section-title">How it Works</h2>
+        <!-- Steps with Animation -->
+        <!-- Repeat this structure for each step -->
+        <div class="step-box">
+            <h3>Upload Your Inspiration</h3>
+            <p>Begin by uploading an image that inspires you. It could be a photo, artwork, or anything that sparks your creativity.</p>
+        </div>
+
+        <div class="step-box">
+            <h3>Generate Your Soundtrack</h3>
+            <p>Let BeatWave's intelligent algorithms analyze your image and translate it into a one-of-a-kind musical masterpiece.</p>
+        </div>
+
+        <div class="step-box">
+            <h3>Download and Explore</h3>
+            <p>Download your generated audio and MIDI files. Dive into the world of sound, experiment with arrangements, or use them as a starting point for your musical endeavors.</p>
+        </div>
+    </section>
+
+    <!-- Upload and Generate Section -->
+    <section class="upload-section">
+
+        <h2 class="section-title">Upload Image and Generate Music</h2>
+       <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image">
+        <button class="shiny-button" type="submit">Generate Music</button>
+       </form>
+    </section>
+
+    <!-- "Why BeatWave?" Section -->
+    <section class="why-beatwave-section">
+        <h2 class="section-title">Why BeatWave?</h2>
+        <!-- Text with Animation -->
+        <!-- Repeat this structure for each point -->
+        <div class="point-box">
+            <h3>Innovation Meets Art</h3>
+            <p>BeatWave merges technology and artistry, opening new possibilities for expressing yourself through music.</p>
+        </div>
+
+        <div class="point-box">
+            <h3>Accessible Creativity</h3>
+            <p>No musical background required! BeatWave makes music creation accessible to everyone, regardless of expertise.</p>
+        </div>
+
+        <div class="point-box">
+            <h3>Limitless Exploration</h3>
+            <p>Break free from conventional musical norms. With BeatWave, explore and create music without boundaries.</p>
+        </div>
+    </section>
+
+    <!-- Logo and Team Section -->
+    <section class="logo-section">
+         <img src="{% static 'images/logoo.png' %}" alt="BeatWave Logo" class="bigger-logo">
+        <p class="team-name">by TEAM B1</p>
+    </section>
+</body>
+</html>

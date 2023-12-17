@@ -1,0 +1,166 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Sunshine&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bradley+Sans:wght@300&display=swap');
+body {
+    margin: 0;
+    font-family: 'Bradley Sans', sans-serif;
+}
+
+/* Add your styles here */
+
+/* Top Bar Styles */
+.top-bar {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    max-height: 50px;
+}
+
+.team-name {
+    font-size: 0.8em;
+}
+
+/* Main Header Styles */
+.main-header {
+    text-align: center;
+    background: url('{% static 'music_generator/images/background.png' %}') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    padding: 100px 0;
+}
+
+.header-title {
+    font-family: 'Sunshine', sans-serif;
+    font-size: 3em;
+    margin: 0;
+}
+
+.sub-title {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+/* Intro Section Styles */
+.intro-section {
+    padding: 50px;
+    background-color: #dac3f2; /* Pastel Purple */
+    color: white;
+}
+
+/* Features Section Styles */
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px;
+    background-color: #dac3f2; /* Pastel Purple */
+    color: white;
+}
+
+.feature-box {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #8462a9; /* Darker Purple */
+}
+
+.feature-box h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 1em;
+}
+
+/* How it Works Section Styles */
+.how-it-works-section {
+    padding: 50px;
+    background-color: #dac3f2; /* Pastel Purple */
+    color: white;
+}
+
+.section-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.step-box {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #8462a9; /* Darker Purple */
+}
+
+.step-box h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.step-box p {
+    font-size: 1em;
+}
+
+/* Upload Section Styles */
+.upload-section {
+    text-align: center;
+    padding: 50px;
+    background-color: #dac3f2; /* Pastel Purple */
+    color: white;
+}
+
+.shiny-button {
+    /* Add your shiny button styles here */
+    background-color: #ffcc00; /* Shiny Yellow */
+    color: black;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.shiny-button:hover {
+    background-color: #ffdb4d; /* Lighter Yellow on Hover */
+}
+
+/* Why BeatWave Section Styles */
+.why-beatwave-section {
+    padding: 50px;
+    background-color: black;
+    color: white;
+}
+
+.point-box {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #333; /* Dark Gray */
+}
+
+.point-box h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.point-box p {
+    font-size: 1em;
+}
+
+/* Logo Section Styles */
+.logo-section {
+    text-align: center;
+    padding: 50px;
+    background-color: #dac3f2; /* Pastel Purple */
+    color: white;
+}
+
+.bigger-logo {
+    max-height: 100px;
+}
