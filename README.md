@@ -1,5 +1,7 @@
 # Music_from_Image using python libraries and Django framework(BeatWave)
 Generating music from Images.
+
+
    -by mapping each pixel to a frequency value 
 
    
