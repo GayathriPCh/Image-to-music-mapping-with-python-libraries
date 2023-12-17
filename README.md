@@ -27,7 +27,8 @@ To run BeatWave locally:
 
 ```bash
 git clone https://github.com/GayathriPCh/Image-to-music-mapping-with-python-libraries.git
-cd beatwave
+cd Image-to-music-mapping-with-python-libraries
+cd ImageToMusic
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
