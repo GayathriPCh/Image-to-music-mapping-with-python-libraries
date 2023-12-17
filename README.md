@@ -26,7 +26,7 @@ BeatWave is a Python-based web application developed using the Django framework 
 To run BeatWave locally:
 
 ```bash
-git clone https://github.com/GayathriPCh/beatwave.git
+git clone https://github.com/GayathriPCh/Image-to-music-mapping-with-python-libraries.git
 cd beatwave
 pip install -r requirements.txt
 python manage.py migrate
