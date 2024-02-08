@@ -2,6 +2,11 @@
 
 **This project is developed as part of the Python Full Stack Development (PFSD) course. It serves as a practical application of the concepts learned during the course.**
 
+![image](https://github.com/GayathriPCh/Image-to-music-mapping-with-python-libraries/assets/132088009/7d54a9f7-db1d-42cb-8521-740d528d2dbb)
+
+![image](https://github.com/GayathriPCh/Image-to-music-mapping-with-python-libraries/assets/132088009/50d0a40b-ab20-405d-aa4d-f550c051ba71)
+
+
 
 ## Overview
 
