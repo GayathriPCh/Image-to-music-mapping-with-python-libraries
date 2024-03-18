@@ -12,6 +12,9 @@
 
 BeatWave is a Python-based web application developed using the Django framework that allows users to generate music compositions inspired by visual elements in an image. By mapping each pixel to a frequency value, BeatWave transforms images into unique musical experiences.
 
+## Idea source
+Idea inspired from https://betterprogramming.pub/making-music-from-images-with-python-81db627fd549 medium article . Learn more at their website https://victormurcia.github.io/Making-Music-From-Images-in-Python/
+
 ## Current Functionality
 
 - **Upload Interface:** Users can upload an image of their choice through the user-friendly interface.
